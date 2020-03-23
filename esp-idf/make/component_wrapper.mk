@@ -151,7 +151,23 @@ COMPONENT_EMBED_OBJS ?= $(addsuffix .bin.o,$(notdir $(COMPONENT_EMBED_FILES))) $
 # means we can accidentally grab a header from another component before grabbing our own.
 # To make sure that does not happen, re-order the includes so ours come first.
 COMPONENT_PRIV_INCLUDEDIRS ?=
-OWN_INCLUDES:=$(abspath $(addprefix $(COMPONENT_PATH)/,$(COMPONENT_PRIV_INCLUDEDIRS) $(COMPONENT_ADD_INCLUDEDIRS)))
+ifeq ($(findstring $(AMAZON_FREERTOS_PATH),$(COMPONENT_PRIV_INCLUDEDIRS)),)
+    $(warning "FOOF")
+    OWN_INCLUDES:=$(abspath $(addprefix $(COMPONENT_PATH)/,$(COMPONENT_PRIV_INCLUDEDIRS)))
+else
+    $(warning "POOF")
+    OWN_INCLUDES:=$(COMPONENT_PRIV_INCLUDEDIRS)
+endif
+
+COMPONENT_ADD_INCLUDEDIRS ?=
+ifeq ($(findstring $(AMAZON_FREERTOS_PATH),$(COMPONENT_ADD_INCLUDEDIRS)),)
+    $(warning "BOOF")
+    OWN_INCLUDES+=$(abspath $(addprefix $(COMPONENT_PATH)/,$(COMPONENT_ADD_INCLUDEDIRS)))
+else
+    $(warning "WOOF -- $(COMPONENT_ADD_INCLUDEDIRS)")
+    OWN_INCLUDES+=$(COMPONENT_ADD_INCLUDEDIRS)
+endif
+
 COMPONENT_INCLUDES := $(OWN_INCLUDES) $(filter-out $(OWN_INCLUDES),$(COMPONENT_INCLUDES))
 
 

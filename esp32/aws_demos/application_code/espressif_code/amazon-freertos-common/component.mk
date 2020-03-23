@@ -14,8 +14,8 @@ AMAZON_FREERTOS_ABSTRACTIONS_DIR := $(AMAZON_FREERTOS_ROOT)/libraries/abstractio
 AMAZON_FREERTOS_ARF_PLUS_DIR := $(AMAZON_FREERTOS_ROOT)/libraries/freertos_plus
 AMAZON_FREERTOS_ARF_KERNEL := $(AMAZON_FREERTOS_ROOT)/freertos_kernel
 AMAZON_FREERTOS_ARF_PORTS := $(AMAZON_FREERTOS_ROOT)/vendors/espressif/boards/esp32/ports
-AMAZON_FREERTOS_TESTS_DIR := $(AMAZON_FREERTOS_ROOT)/tests
-AMAZON_FREERTOS_DEMOS_DIR := $(AMAZON_FREERTOS_ROOT)/demos
+AMAZON_FREERTOS_TESTS_DIR := ./tests
+AMAZON_FREERTOS_DEMOS_DIR := ./demos
 
 ifndef AMAZON_FREERTOS_ENABLE_UNIT_TEST
 AMAZON_FREERTOS_ESP32 := $(PROJECT_PATH)/esp32/aws_demos
@@ -142,7 +142,7 @@ COMPONENT_OBJEXCLUDE += $(AMAZON_FREERTOS_ARF_PLUS_DIR)/aws/ota/test/aws_test_ot
 
 COMPONENT_PRIV_INCLUDEDIRS += $(AMAZON_FREERTOS_3RD_PARTY_DIR)/unity/extras/fixture/src \
         ${AMAZON_FREERTOS_SDK_DIR}/standard/mqtt/test/access \
-        ${AMAZON_FREERTOS_SDK_DIR}/standard/https/test/access
+        ${AMAZON_FREERTOS_SDK_DIR}/standard/https/test/access'
 
 # Define the board to pass the SOCKETS_Socket_InvalidTooManySockets test.
 CFLAGS += -DESP32
